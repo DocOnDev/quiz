@@ -6,7 +6,7 @@ def run_with_phrase(phrase)
   phrase_parts = phrase.split_madlib_phrase
 
   phrase_parts.each_with_index do |string_part, index|
-    if string_part.is_madlib_prompt?
+    if string_part.madlib_prompt?
       name, prompt = string_part.madlib_name_and_prompt
       name ||= NAME_PREFIX + index.to_s
       prompts.add(name, prompt, index)

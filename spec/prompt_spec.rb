@@ -18,5 +18,4 @@ describe "Prompt" do
     @prompt.add_offset(2)
     2.should == @prompt.offset[1]
   end
-  
 end

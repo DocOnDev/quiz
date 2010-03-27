@@ -1,9 +1,9 @@
 class String
-  def is_madlib_prompt?
+  def madlib_prompt?
     self.include? ']'
   end
 
-  def is_a_madlib_phrase_indicator?
+  def madlib_phrase_indicator?
     self.upcase == 'P' || self.upcase == 'PHRASE'
   end
 
