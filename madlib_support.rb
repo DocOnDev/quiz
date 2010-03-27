@@ -11,6 +11,7 @@ end
 
 def run_with_response(response)
   response_parts = split_response(response)
+  #TODO: Consider changing this to a class
   @prompts = Hash.new
 
   response_parts.each_with_index do |part, index|
@@ -38,6 +39,7 @@ def run_with_response(response)
 end
 
 def split_response(response)
+  # TODO: find a better way to adjust the string prior to split
   response = response.gsub(/\[/, '|[')
   response = response.gsub(/\]/, ']|')
   response.split('|')
