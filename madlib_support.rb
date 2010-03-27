@@ -1,46 +1,25 @@
-class String
-  def is_madlib_prompt?
-    self.include? ']'
-  end
+REQUEST_PREFIX = 'Give me a '
+NAME_PREFIX = "mad_lib_name_"
 
-  def without_delimiters
-    self[1..-2] if self.include? '['
-  end
+def run_with_phrase(phrase)
+  prompts = Prompts.new
+  phrase_parts = phrase.split_madlib_phrase
 
-end
-
-def run_with_response(response)
-  response_parts = split_response(response)
-  #TODO: Consider changing this to a class
-  @prompts = Hash.new
-
-  response_parts.each_with_index do |part, index|
-    if part.is_madlib_prompt?
-      part = part.without_delimiters
-      name = "mad_lib_id_" + index.to_s
-      name, part = part.split(':') if part.include? ':'
-      if @prompts.has_key? name
-        @prompts[name].add_offset(index)
-      else
-        @prompts[name] = Prompt.new(part, [index])
-      end
+  phrase_parts.each_with_index do |string_part, index|
+    if string_part.is_madlib_prompt?
+      name, prompt = string_part.madlib_name_and_prompt
+      name ||= NAME_PREFIX + index.to_s
+      prompts.add(name, prompt, index)
     end
   end
 
-  @prompts.each do |name, prompt|
-    puts 'Give me a ' + prompt.text
+  prompts.each_prompt do |text, offsets|
+    puts REQUEST_PREFIX + text
     answer = gets.chomp
-    prompt.offset.each do |offset|
-      response_parts[offset] = answer
+    offsets.each do |offset|
+      phrase_parts[offset] = answer
     end
   end
 
-  puts response_parts.join()
-end
-
-def split_response(response)
-  # TODO: find a better way to adjust the string prior to split
-  response = response.gsub(/\[/, '|[')
-  response = response.gsub(/\]/, ']|')
-  response.split('|')
+  puts phrase_parts.join()
 end
