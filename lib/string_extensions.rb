@@ -1,4 +1,9 @@
 class String
+
+  def not_madlib_prompt?
+    !self.madlib_prompt?
+  end
+  
   def madlib_prompt?
     self.include? ']'
   end

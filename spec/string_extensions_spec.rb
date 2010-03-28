@@ -6,6 +6,7 @@ describe "StringExtensions" do
   it "should recognize a madlib prompt" do
     "this is a madlib [prompt] string".should be_a_madlib_prompt
     "this is NOT a madlib prompt string".should_not be_a_madlib_prompt
+    true.should == "this is NOT a madlib prompt string".not_madlib_prompt?
   end
 
   it "should recognize a madlib phrase indicator" do

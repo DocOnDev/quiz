@@ -10,6 +10,11 @@ describe "ArgumentParser" do
     phrase.should == "This is it"
   end
 
+  it "should provide an empty phrase for an empty argument list" do
+    phrase = @parser.parse_and_clear []
+    phrase.should == ""
+  end
+
   it "should clear the args list" do
     args = ["phrase=This is the phrase"]
     @parser.parse_and_clear args
