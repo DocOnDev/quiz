@@ -1,7 +1,7 @@
 require 'lib/string_extensions'
 
 class ArgumentParser
-  def parse(args)
+  def parse_and_clear(args)
     phrase = nil
     args.each do |arg|
       command, option = arg.split('=')
